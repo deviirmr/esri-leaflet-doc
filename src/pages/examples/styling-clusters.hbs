@@ -170,7 +170,16 @@ in production you'd be better off hosting these libraries yourself -->
     }
   }).addTo(map);
 
-  stops.bindPopup(function(feature){
-    return L.Util.template('<strong>{stop_name}</strong><br>{stop_desc}', feature.properties);
-  });
+ // stops.bindPopup(function(feature){
+   // return L.Util.template('<strong>{stop_name}</strong><br>{stop_desc}', feature.properties);
+ // });
+ 
+  var popup = new L.Popup();
+
+stops.on('click', function(e){
+        popup
+  .setLatLng(e.latlng)
+      .setContent(L.Util.template('<strong>{stop_name}</strong><br>{stop_desc}', e.layer.feature.properties))
+      .openOn(map);
+});
 </script>
